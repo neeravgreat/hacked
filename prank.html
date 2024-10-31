@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Hack Detected</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            overflow: hidden;
+            margin: 0;
+        }
+        #hacking, #glitch-text {
+            font-size: 5vw;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 40%;
+            color: #00ff00;
+            animation: glitch 0.5s infinite alternate-reverse;
+        }
+        .alert-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: 3px solid red;
+            font-size: 5vw;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 0 30px red;
+        }
+        .static-effect {
+            animation: static 0.1s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes static {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="hacking">Initializing system...</div>
+    <div class="alert-box" id="alertBox">
+        <p>CRITICAL ERROR: SYSTEM OVERRIDE DETECTED</p>
+        <p>All data has been compromised!</p>
+        <p id="countdown">Your system will shut down in 5 minutes...</p>
+    </div>
+    <div id="glitch-text" class="static-effect">█ █ █ ██ █ HACKED █ ██ █ █</div>
+
+    <script>
+        const messages = [
+            "Establishing secure connection...",
+            "Encrypting data...",
+            "Unauthorized access detected!",
+            "Attempting to trace IP...",
+            "System override initiated.",
+            "Data compromised!",
+            "Shutting down security protocols...",
+            "CRITICAL ERROR: SYSTEM OVERRIDE DETECTED"
+        ];
+
+        let index = 0;
+        const hackingDiv = document.getElementById('hacking');
+        const alertBox = document.getElementById('alertBox');
+        const glitchText = document.getElementById('glitch-text');
+        const countdown = document.getElementById('countdown');
+
+        function displayMessage() {
+            if (index < messages.length) {
+                hackingDiv.textContent = messages[index];
+                index++;
+                setTimeout(displayMessage, 1200);
+            } else {
+                hackingDiv.style.display = 'none';
+                glitchText.style.display = 'none';
+                alertBox.style.display = 'block';
+                startCountdown();
+            }
+        }
+
+        function startCountdown() {
+            let timeLeft = 300; // 5 minutes in seconds
+            const countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdown.textContent = `Your system will shut down in ${minutes}m ${seconds}s...`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    closePage();
+                }
+            }, 1000);
+        }
+
+        function closePage() {
+            alertBox.style.display = 'none';
+            alert("Shutting down... Goodbye!");
+            setTimeout(() => {
+                window.close(); // Attempts to close the page
+            }, 2000);
+        }
+
+        displayMessage();
+    </script>
+</body>
+</html>
